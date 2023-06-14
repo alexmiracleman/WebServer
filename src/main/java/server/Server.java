@@ -3,10 +3,11 @@ package server;
 
 import io.RequestHandler;
 
-import java.io.*;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.net.ServerSocket;
 import java.net.Socket;
-
 
 
 public class Server {
@@ -20,13 +21,13 @@ public class Server {
     public void setWebAppPath(String webAppPath) {
         this.webAppPath = webAppPath;
     }
+
     public void start() throws IOException {
         try (ServerSocket serverSocket = new ServerSocket(port)) {
             while (true) {
                 try (Socket socket = serverSocket.accept();
                      InputStream inputStream = socket.getInputStream();
                      OutputStream outputStream = socket.getOutputStream()
-
                 ) {
                     RequestHandler requestHandler = new RequestHandler(webAppPath, inputStream, outputStream);
                     requestHandler.handle();

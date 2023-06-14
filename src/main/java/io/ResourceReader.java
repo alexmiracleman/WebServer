@@ -1,6 +1,5 @@
 package io;
 
-import domain.StatusCode;
 import exceptions.ServerException;
 
 import java.io.*;
@@ -17,7 +16,6 @@ public class ResourceReader {
     public InputStream read(String uri) throws IOException {
         File pathToFile = new File(webAppPath, uri);
         byte[] contentArray = new byte[(int) pathToFile.length()];
-
         try (FileInputStream fileInputStream = new FileInputStream(pathToFile)) {
             fileInputStream.read(contentArray);
         } catch (FileNotFoundException e) {
@@ -25,7 +23,7 @@ public class ResourceReader {
         }
         return new FileInputStream(webAppPath + uri);
 
-        }
+    }
 
 
 }

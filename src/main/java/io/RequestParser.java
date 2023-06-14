@@ -20,8 +20,8 @@ public class RequestParser {
     public static Request parse(InputStream inputStream) throws IOException {
         BufferedReader bufferedReader = new BufferedReader(new InputStreamReader(inputStream));
         Request request = new Request();
-        String topLine = bufferedReader.readLine();
-        getMethodAndURI(topLine, request);
+        String readLine = bufferedReader.readLine();
+        getMethodAndURI(readLine, request);
         getHeaders(bufferedReader, request);
         return request;
 
@@ -42,8 +42,7 @@ public class RequestParser {
         String uri = line.substring(line.indexOf("/"), line.indexOf(" HTTP"));
         if (uri.equals(emptyUri)) {
             request.setUri(homePageUri);
-        }
-        else {
+        } else {
             request.setUri(uri);
         }
     }
@@ -59,7 +58,9 @@ public class RequestParser {
             String name = line.substring(0, separator);
             String value = line.substring(separator + 1).trim();
             headers.put(name, value);
+
         }
+
         request.setHeaders(headers);
     }
 
